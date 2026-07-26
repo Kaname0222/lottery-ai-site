@@ -33,7 +33,7 @@ export default function Leaderboard({ scores }) {
               <th className="px-2 py-2 text-right text-blue-700">其他积分</th>
               <th className="px-2 py-2 text-right text-green-700">方向积分</th>
               <th className="px-2 py-2 text-right">总积分</th>
-              <th className="px-2 py-2 text-right">命中比分</th>
+              <th className="px-2 py-2 text-right">命中其他</th>
               <th className="px-2 py-2 text-right">命中方向</th>
               <th className="px-2 py-2 text-right">准确率</th>
             </tr>

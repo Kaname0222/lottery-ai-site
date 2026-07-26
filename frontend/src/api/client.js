@@ -11,6 +11,9 @@ export const fetchDashboard = () => client.get('/dashboard/today')
 export const fetchMatches = (params) => client.get('/matches', { params })
 export const fetchProviders = () => client.get('/providers')
 export const fetchLeaderboard = () => client.get('/providers/leaderboard')
+export const fetchScoreLeaderboard = () => client.get('/providers/leaderboard/score')
+export const fetchTotalGoalsLeaderboard = () => client.get('/providers/leaderboard/total-goals')
+export const fetchHalfFullLeaderboard = () => client.get('/providers/leaderboard/half-full')
 export const submitResult = (matchId, homeScore, awayScore, halfFull = null) =>
   client.post(`/matches/${matchId}/result`, null, { params: { home_score: homeScore, away_score: awayScore, half_full: halfFull } })
 export const submitPersonalPrediction = (matchId, data) =>

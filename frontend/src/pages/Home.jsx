@@ -3,8 +3,19 @@ import Header from '../components/Header'
 import FilterBar from '../components/FilterBar'
 import MatchCard from '../components/MatchCard'
 import Leaderboard from '../components/Leaderboard'
+import MarketLeaderboard from '../components/MarketLeaderboard'
 import ManualPredictionModal from '../components/ManualPredictionModal'
-import { fetchDashboard, fetchMatches, runScrape, runPredictions, runScoring, finishMatches } from '../api/client'
+import {
+  fetchDashboard,
+  fetchMatches,
+  runScrape,
+  runPredictions,
+  runScoring,
+  finishMatches,
+  fetchScoreLeaderboard,
+  fetchTotalGoalsLeaderboard,
+  fetchHalfFullLeaderboard,
+} from '../api/client'
 import { batchImportManualPredictions, AI_PROVIDER_OPTIONS } from '../utils/prediction'
 
 export default function Home() {
@@ -18,11 +29,29 @@ export default function Home() {
   const [importProvider, setImportProvider] = useState('gemini')
   const [importResult, setImportResult] = useState(null)
   const [showManualModal, setShowManualModal] = useState(false)
+  const [scoreLeaderboard, setScoreLeaderboard] = useState(null)
+  const [totalGoalsLeaderboard, setTotalGoalsLeaderboard] = useState(null)
+  const [halfFullLeaderboard, setHalfFullLeaderboard] = useState(null)
 
   const loadDashboard = async () => {
     try {
       const { data } = await fetchDashboard()
       setDashboard(data)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const loadMarketLeaderboards = async () => {
+    try {
+      const [score, totalGoals, halfFull] = await Promise.all([
+        fetchScoreLeaderboard(),
+        fetchTotalGoalsLeaderboard(),
+        fetchHalfFullLeaderboard(),
+      ])
+      setScoreLeaderboard(score.data)
+      setTotalGoalsLeaderboard(totalGoals.data)
+      setHalfFullLeaderboard(halfFull.data)
     } catch (err) {
       console.error(err)
     }
@@ -45,6 +74,7 @@ export default function Home() {
   useEffect(() => {
     loadDashboard()
     loadMatches()
+    loadMarketLeaderboards()
   }, [])
 
   const buildParams = (f) => {
@@ -63,6 +93,7 @@ export default function Home() {
   const handleRefresh = () => {
     loadDashboard()
     loadMatches(buildParams(filters))
+    loadMarketLeaderboards()
   }
 
   const handleRunScrape = async () => {
@@ -248,8 +279,11 @@ export default function Home() {
               ))
             )}
           </div>
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-1 space-y-6">
             {dashboard && <Leaderboard scores={dashboard.provider_scores} />}
+            {scoreLeaderboard && <MarketLeaderboard title="比分排行榜" scores={scoreLeaderboard} />}
+            {totalGoalsLeaderboard && <MarketLeaderboard title="总进球数排行榜" scores={totalGoalsLeaderboard} />}
+            {halfFullLeaderboard && <MarketLeaderboard title="半全场排行榜" scores={halfFullLeaderboard} />}
           </div>
         </div>
 
