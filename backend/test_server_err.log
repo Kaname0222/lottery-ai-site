@@ -1,0 +1,362 @@
+C:\Users\19692\AppData\Local\Programs\Python\Python312\Lib\site-packages\pydantic\_internal\_fields.py:160: UserWarning: Field "model_name" has conflict with protected namespace "model_".
+
+You may be able to resolve this warning by setting `model_config['protected_namespaces'] = ()`.
+  warnings.warn(
+INFO:     Started server process [140416]
+INFO:     Waiting for application startup.
+2026-07-26 12:39:47,880 - app.main - INFO - Initializing database...
+2026-07-26 12:39:47,882 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2026-07-26 12:39:47,884 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("matches")
+2026-07-26 12:39:47,885 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-07-26 12:39:47,887 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("llm_providers")
+2026-07-26 12:39:47,887 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-07-26 12:39:47,888 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("predictions")
+2026-07-26 12:39:47,889 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-07-26 12:39:47,891 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("provider_scores")
+2026-07-26 12:39:47,891 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-07-26 12:39:47,892 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scrape_logs")
+2026-07-26 12:39:47,892 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-07-26 12:39:47,893 - sqlalchemy.engine.Engine - INFO - COMMIT
+2026-07-26 12:39:47,895 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2026-07-26 12:39:47,905 - sqlalchemy.engine.Engine - INFO - SELECT llm_providers.id, llm_providers.name, llm_providers.display_name, llm_providers.model_name, llm_providers.api_base_url, llm_providers.is_active, llm_providers.api_key_env_name 
+FROM llm_providers 
+WHERE llm_providers.name = ?
+2026-07-26 12:39:47,905 - sqlalchemy.engine.Engine - INFO - [generated in 0.00048s] ('gpt',)
+2026-07-26 12:39:47,906 - sqlalchemy.engine.Engine - INFO - SELECT llm_providers.id, llm_providers.name, llm_providers.display_name, llm_providers.model_name, llm_providers.api_base_url, llm_providers.is_active, llm_providers.api_key_env_name 
+FROM llm_providers 
+WHERE llm_providers.name = ?
+2026-07-26 12:39:47,906 - sqlalchemy.engine.Engine - INFO - [cached since 0.0023s ago] ('gemini',)
+2026-07-26 12:39:47,907 - sqlalchemy.engine.Engine - INFO - SELECT llm_providers.id, llm_providers.name, llm_providers.display_name, llm_providers.model_name, llm_providers.api_base_url, llm_providers.is_active, llm_providers.api_key_env_name 
+FROM llm_providers 
+WHERE llm_providers.name = ?
+2026-07-26 12:39:47,907 - sqlalchemy.engine.Engine - INFO - [cached since 0.003448s ago] ('deepseek',)
+2026-07-26 12:39:47,908 - sqlalchemy.engine.Engine - INFO - SELECT llm_providers.id, llm_providers.name, llm_providers.display_name, llm_providers.model_name, llm_providers.api_base_url, llm_providers.is_active, llm_providers.api_key_env_name 
+FROM llm_providers 
+WHERE llm_providers.name = ?
+2026-07-26 12:39:47,908 - sqlalchemy.engine.Engine - INFO - [cached since 0.004833s ago] ('kimi',)
+2026-07-26 12:39:47,910 - sqlalchemy.engine.Engine - INFO - SELECT llm_providers.id, llm_providers.name, llm_providers.display_name, llm_providers.model_name, llm_providers.api_base_url, llm_providers.is_active, llm_providers.api_key_env_name 
+FROM llm_providers 
+WHERE llm_providers.name = ?
+2026-07-26 12:39:47,910 - sqlalchemy.engine.Engine - INFO - [cached since 0.005933s ago] ('doubao',)
+2026-07-26 12:39:47,911 - sqlalchemy.engine.Engine - INFO - SELECT llm_providers.id, llm_providers.name, llm_providers.display_name, llm_providers.model_name, llm_providers.api_base_url, llm_providers.is_active, llm_providers.api_key_env_name 
+FROM llm_providers 
+WHERE llm_providers.name = ?
+2026-07-26 12:39:47,911 - sqlalchemy.engine.Engine - INFO - [cached since 0.00702s ago] ('qianwen',)
+2026-07-26 12:39:47,912 - sqlalchemy.engine.Engine - INFO - SELECT llm_providers.id, llm_providers.name, llm_providers.display_name, llm_providers.model_name, llm_providers.api_base_url, llm_providers.is_active, llm_providers.api_key_env_name 
+FROM llm_providers 
+WHERE llm_providers.name = ?
+2026-07-26 12:39:47,912 - sqlalchemy.engine.Engine - INFO - [cached since 0.008171s ago] ('personal',)
+2026-07-26 12:39:47,913 - sqlalchemy.engine.Engine - INFO - COMMIT
+2026-07-26 12:39:47,917 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-26 12:39:47,918 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-26 12:39:47,918 - apscheduler.scheduler - INFO - Added job "_sync_run_pipeline" to job store "default"
+2026-07-26 12:39:47,918 - apscheduler.scheduler - INFO - Added job "_sync_run_pipeline" to job store "default"
+2026-07-26 12:39:47,918 - apscheduler.scheduler - INFO - Scheduler started
+2026-07-26 12:39:47,919 - app.main - INFO - Scheduler started
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2026-07-26 12:41:52,661 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2026-07-26 12:41:52,663 - sqlalchemy.engine.Engine - INFO - INSERT INTO scrape_logs (id, run_at, log_type, status, count, error_message) VALUES (?, ?, ?, ?, ?, ?)
+2026-07-26 12:41:52,664 - sqlalchemy.engine.Engine - INFO - [generated in 0.00037s] ('8270b578eb05405da20fdc8d4c4694e4', '2026-07-26 12:41:52.663532', 'results', 'running', None, None)
+2026-07-26 12:41:52,666 - sqlalchemy.engine.Engine - INFO - COMMIT
+2026-07-26 12:41:57,338 - app.services.scraper.result_scraper - INFO - Parsed 29 match results from API
+2026-07-26 12:41:57,430 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2026-07-26 12:41:57,432 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.match_id = ?
+2026-07-26 12:41:57,433 - sqlalchemy.engine.Engine - INFO - [generated in 0.00030s] ('周六210',)
+2026-07-26 12:41:57,435 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.match_id = ?
+2026-07-26 12:41:57,435 - sqlalchemy.engine.Engine - INFO - [cached since 0.002905s ago] ('周六209',)
+2026-07-26 12:41:57,436 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.match_id = ?
+2026-07-26 12:41:57,436 - sqlalchemy.engine.Engine - INFO - [cached since 0.004175s ago] ('周六208',)
+2026-07-26 12:41:57,437 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.match_id = ?
+2026-07-26 12:41:57,438 - sqlalchemy.engine.Engine - INFO - [cached since 0.005538s ago] ('周六207',)
+2026-07-26 12:41:57,438 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.match_id = ?
+2026-07-26 12:41:57,439 - sqlalchemy.engine.Engine - INFO - [cached since 0.007128s ago] ('周六206',)
+2026-07-26 12:41:57,440 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.match_id = ?
+2026-07-26 12:41:57,440 - sqlalchemy.engine.Engine - INFO - [cached since 0.008516s ago] ('周六205',)
+2026-07-26 12:41:57,442 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.match_id = ?
+2026-07-26 12:41:57,442 - sqlalchemy.engine.Engine - INFO - [cached since 0.00976s ago] ('周六204',)
+2026-07-26 12:41:57,443 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.match_id = ?
+2026-07-26 12:41:57,443 - sqlalchemy.engine.Engine - INFO - [cached since 0.01141s ago] ('周六203',)
+2026-07-26 12:41:57,445 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.match_id = ?
+2026-07-26 12:41:57,445 - sqlalchemy.engine.Engine - INFO - [cached since 0.01283s ago] ('周六202',)
+2026-07-26 12:41:57,446 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.match_id = ?
+2026-07-26 12:41:57,446 - sqlalchemy.engine.Engine - INFO - [cached since 0.01443s ago] ('周六201',)
+2026-07-26 12:41:57,448 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.match_id = ?
+2026-07-26 12:41:57,448 - sqlalchemy.engine.Engine - INFO - [cached since 0.01587s ago] ('周五202',)
+2026-07-26 12:41:57,450 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.mid = ?
+2026-07-26 12:41:57,450 - sqlalchemy.engine.Engine - INFO - [generated in 0.00064s] ('2040611',)
+2026-07-26 12:41:57,451 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.match_id = ?
+2026-07-26 12:41:57,451 - sqlalchemy.engine.Engine - INFO - [cached since 0.01954s ago] ('周五201',)
+2026-07-26 12:41:57,453 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.mid = ?
+2026-07-26 12:41:57,454 - sqlalchemy.engine.Engine - INFO - [cached since 0.00403s ago] ('2040610',)
+2026-07-26 12:41:57,454 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.match_id = ?
+2026-07-26 12:41:57,455 - sqlalchemy.engine.Engine - INFO - [cached since 0.02228s ago] ('周四207',)
+2026-07-26 12:41:57,455 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.mid = ?
+2026-07-26 12:41:57,455 - sqlalchemy.engine.Engine - INFO - [cached since 0.006212s ago] ('2040600',)
+2026-07-26 12:41:57,456 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.match_id = ?
+2026-07-26 12:41:57,456 - sqlalchemy.engine.Engine - INFO - [cached since 0.02435s ago] ('周四206',)
+2026-07-26 12:41:57,458 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.mid = ?
+2026-07-26 12:41:57,458 - sqlalchemy.engine.Engine - INFO - [cached since 0.008504s ago] ('2040599',)
+2026-07-26 12:41:57,459 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.match_id = ?
+2026-07-26 12:41:57,459 - sqlalchemy.engine.Engine - INFO - [cached since 0.02708s ago] ('周四205',)
+2026-07-26 12:41:57,460 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.mid = ?
+2026-07-26 12:41:57,460 - sqlalchemy.engine.Engine - INFO - [cached since 0.0111s ago] ('2040598',)
+2026-07-26 12:41:57,461 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.match_id = ?
+2026-07-26 12:41:57,462 - sqlalchemy.engine.Engine - INFO - [cached since 0.02933s ago] ('周四204',)
+2026-07-26 12:41:57,462 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.mid = ?
+2026-07-26 12:41:57,463 - sqlalchemy.engine.Engine - INFO - [cached since 0.01325s ago] ('2040603',)
+2026-07-26 12:41:57,463 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.match_id = ?
+2026-07-26 12:41:57,464 - sqlalchemy.engine.Engine - INFO - [cached since 0.03141s ago] ('周四203',)
+2026-07-26 12:41:57,465 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.mid = ?
+2026-07-26 12:41:57,465 - sqlalchemy.engine.Engine - INFO - [cached since 0.01553s ago] ('2040597',)
+2026-07-26 12:41:57,465 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.match_id = ?
+2026-07-26 12:41:57,465 - sqlalchemy.engine.Engine - INFO - [cached since 0.03373s ago] ('周四202',)
+2026-07-26 12:41:57,466 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.mid = ?
+2026-07-26 12:41:57,466 - sqlalchemy.engine.Engine - INFO - [cached since 0.01759s ago] ('2040593',)
+2026-07-26 12:41:57,468 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.match_id = ?
+2026-07-26 12:41:57,468 - sqlalchemy.engine.Engine - INFO - [cached since 0.03577s ago] ('周四201',)
+2026-07-26 12:41:57,469 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.mid = ?
+2026-07-26 12:41:57,469 - sqlalchemy.engine.Engine - INFO - [cached since 0.01967s ago] ('2040594',)
+2026-07-26 12:41:57,469 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.match_id = ?
+2026-07-26 12:41:57,470 - sqlalchemy.engine.Engine - INFO - [cached since 0.038s ago] ('周三210',)
+2026-07-26 12:41:57,470 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.mid = ?
+2026-07-26 12:41:57,470 - sqlalchemy.engine.Engine - INFO - [cached since 0.02195s ago] ('2040596',)
+2026-07-26 12:41:57,472 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.match_id = ?
+2026-07-26 12:41:57,472 - sqlalchemy.engine.Engine - INFO - [cached since 0.04015s ago] ('周三209',)
+2026-07-26 12:41:57,472 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.mid = ?
+2026-07-26 12:41:57,474 - sqlalchemy.engine.Engine - INFO - [cached since 0.02396s ago] ('2040592',)
+2026-07-26 12:41:57,475 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.match_id = ?
+2026-07-26 12:41:57,475 - sqlalchemy.engine.Engine - INFO - [cached since 0.04239s ago] ('周三208',)
+2026-07-26 12:41:57,476 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.mid = ?
+2026-07-26 12:41:57,476 - sqlalchemy.engine.Engine - INFO - [cached since 0.02654s ago] ('2040591',)
+2026-07-26 12:41:57,477 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.match_id = ?
+2026-07-26 12:41:57,477 - sqlalchemy.engine.Engine - INFO - [cached since 0.04506s ago] ('周三207',)
+2026-07-26 12:41:57,478 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.mid = ?
+2026-07-26 12:41:57,478 - sqlalchemy.engine.Engine - INFO - [cached since 0.02907s ago] ('2040590',)
+2026-07-26 12:41:57,479 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.match_id = ?
+2026-07-26 12:41:57,479 - sqlalchemy.engine.Engine - INFO - [cached since 0.04728s ago] ('周三206',)
+2026-07-26 12:41:57,479 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.mid = ?
+2026-07-26 12:41:57,481 - sqlalchemy.engine.Engine - INFO - [cached since 0.03121s ago] ('2040589',)
+2026-07-26 12:41:57,482 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.match_id = ?
+2026-07-26 12:41:57,482 - sqlalchemy.engine.Engine - INFO - [cached since 0.04945s ago] ('周三205',)
+2026-07-26 12:41:57,482 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.mid = ?
+2026-07-26 12:41:57,483 - sqlalchemy.engine.Engine - INFO - [cached since 0.03355s ago] ('2040588',)
+2026-07-26 12:41:57,484 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.match_id = ?
+2026-07-26 12:41:57,484 - sqlalchemy.engine.Engine - INFO - [cached since 0.05172s ago] ('周三204',)
+2026-07-26 12:41:57,484 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.mid = ?
+2026-07-26 12:41:57,484 - sqlalchemy.engine.Engine - INFO - [cached since 0.03576s ago] ('2040587',)
+2026-07-26 12:41:57,486 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.match_id = ?
+2026-07-26 12:41:57,486 - sqlalchemy.engine.Engine - INFO - [cached since 0.05405s ago] ('周三203',)
+2026-07-26 12:41:57,486 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.mid = ?
+2026-07-26 12:41:57,488 - sqlalchemy.engine.Engine - INFO - [cached since 0.03803s ago] ('2040586',)
+2026-07-26 12:41:57,489 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.match_id = ?
+2026-07-26 12:41:57,489 - sqlalchemy.engine.Engine - INFO - [cached since 0.05647s ago] ('周三202',)
+2026-07-26 12:41:57,489 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.mid = ?
+2026-07-26 12:41:57,490 - sqlalchemy.engine.Engine - INFO - [cached since 0.04057s ago] ('2040585',)
+2026-07-26 12:41:57,490 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.match_id = ?
+2026-07-26 12:41:57,491 - sqlalchemy.engine.Engine - INFO - [cached since 0.05883s ago] ('周三201',)
+2026-07-26 12:41:57,492 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.mid = ?
+2026-07-26 12:41:57,492 - sqlalchemy.engine.Engine - INFO - [cached since 0.04273s ago] ('2040584',)
+2026-07-26 12:41:57,493 - sqlalchemy.engine.Engine - INFO - SELECT matches.id, matches.match_id, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM matches 
+WHERE matches.match_time <= ? AND matches.actual_home_score IS NULL AND matches.mid IS NOT NULL
+2026-07-26 12:41:57,494 - sqlalchemy.engine.Engine - INFO - [generated in 0.00045s] ('2026-07-26 10:41:57.493090',)
+2026-07-26 12:41:57,495 - app.tasks.daily_pipeline - INFO - Batch results empty, falling back to 1 detail pages
+2026-07-26 12:41:57,495 - app.services.scraper.fetcher - INFO - Fetching https://www.sporttery.cn/jc/zqdz/index.html?showType=2&mid=2040622
+2026-07-26 12:41:57,800 - sqlalchemy.engine.Engine - INFO - COMMIT
+2026-07-26 12:41:57,803 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2026-07-26 12:41:57,805 - sqlalchemy.engine.Engine - INFO - SELECT predictions.id, predictions.match_id, predictions.provider_id, predictions.prediction_index, predictions.home_score, predictions.away_score, predictions.confidence, predictions.reasoning_summary, predictions.market_reasoning, predictions.bets, predictions.raw_response, predictions.predicted_at, predictions.is_correct, predictions.points_awarded, predictions.direction_points, predictions.other_points, matches.id AS id_1, matches.match_id AS match_id_1, matches.mid, matches.league, matches.home_team, matches.away_team, matches.match_date, matches.match_time, matches.sale_status, matches.odds_home_win, matches.odds_draw, matches.odds_away_win, matches.handicap, matches.odds_hhad_home_win, matches.odds_hhad_draw, matches.odds_hhad_away_win, matches.support_home, matches.support_draw, matches.support_away, matches.score_odds, matches.total_goals_odds, matches.half_full_odds, matches.actual_home_score, matches.actual_away_score, matches.actual_half_full, matches.result_settled_at, matches.created_at, matches.updated_at 
+FROM predictions JOIN matches ON predictions.match_id = matches.id 
+WHERE matches.actual_home_score IS NOT NULL AND matches.actual_away_score IS NOT NULL AND predictions.points_awarded IS NULL
+2026-07-26 12:41:57,805 - sqlalchemy.engine.Engine - INFO - [generated in 0.00039s] ()
+2026-07-26 12:41:57,808 - sqlalchemy.engine.Engine - INFO - COMMIT
+2026-07-26 12:41:57,810 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2026-07-26 12:41:57,810 - sqlalchemy.engine.Engine - INFO - SELECT llm_providers.id, llm_providers.name, llm_providers.display_name, llm_providers.model_name, llm_providers.api_base_url, llm_providers.is_active, llm_providers.api_key_env_name 
+FROM llm_providers
+2026-07-26 12:41:57,810 - sqlalchemy.engine.Engine - INFO - [generated in 0.00025s] ()
+2026-07-26 12:41:57,814 - sqlalchemy.engine.Engine - INFO - SELECT count(predictions.id) AS total, sum(CAST(predictions.is_correct AS INTEGER)) AS correct, sum(predictions.points_awarded) AS points, sum(predictions.direction_points) AS direction_points, sum(predictions.other_points) AS other_points 
+FROM predictions 
+WHERE predictions.provider_id = ? AND predictions.points_awarded IS NOT NULL
+2026-07-26 12:41:57,815 - sqlalchemy.engine.Engine - INFO - [generated in 0.00039s] ('d9b8ed73f6004616b129df9c170597eb',)
+2026-07-26 12:41:57,816 - sqlalchemy.engine.Engine - INFO - SELECT count(predictions.id) AS count_1 
+FROM predictions 
+WHERE predictions.provider_id = ? AND predictions.points_awarded IS NOT NULL AND predictions.direction_points > ?
+2026-07-26 12:41:57,817 - sqlalchemy.engine.Engine - INFO - [generated in 0.00034s] ('d9b8ed73f6004616b129df9c170597eb', -2)
+2026-07-26 12:41:57,818 - sqlalchemy.engine.Engine - INFO - SELECT provider_scores.id, provider_scores.provider_id, provider_scores.total_predictions, provider_scores.correct_predictions, provider_scores.direction_correct_predictions, provider_scores.total_points, provider_scores.direction_points, provider_scores.other_points, provider_scores.accuracy_rate, provider_scores.updated_at 
+FROM provider_scores 
+WHERE provider_scores.provider_id = ?
+2026-07-26 12:41:57,818 - sqlalchemy.engine.Engine - INFO - [generated in 0.00030s] ('d9b8ed73f6004616b129df9c170597eb',)
+2026-07-26 12:41:57,821 - sqlalchemy.engine.Engine - INFO - SELECT count(predictions.id) AS total, sum(CAST(predictions.is_correct AS INTEGER)) AS correct, sum(predictions.points_awarded) AS points, sum(predictions.direction_points) AS direction_points, sum(predictions.other_points) AS other_points 
+FROM predictions 
+WHERE predictions.provider_id = ? AND predictions.points_awarded IS NOT NULL
+2026-07-26 12:41:57,821 - sqlalchemy.engine.Engine - INFO - [cached since 0.006343s ago] ('9b116ee469fc459699179c1179724806',)
+2026-07-26 12:41:57,822 - sqlalchemy.engine.Engine - INFO - SELECT count(predictions.id) AS count_1 
+FROM predictions 
+WHERE predictions.provider_id = ? AND predictions.points_awarded IS NOT NULL AND predictions.direction_points > ?
+2026-07-26 12:41:57,822 - sqlalchemy.engine.Engine - INFO - [cached since 0.005616s ago] ('9b116ee469fc459699179c1179724806', -2)
+2026-07-26 12:41:57,823 - sqlalchemy.engine.Engine - INFO - SELECT provider_scores.id, provider_scores.provider_id, provider_scores.total_predictions, provider_scores.correct_predictions, provider_scores.direction_correct_predictions, provider_scores.total_points, provider_scores.direction_points, provider_scores.other_points, provider_scores.accuracy_rate, provider_scores.updated_at 
+FROM provider_scores 
+WHERE provider_scores.provider_id = ?
+2026-07-26 12:41:57,823 - sqlalchemy.engine.Engine - INFO - [cached since 0.004744s ago] ('9b116ee469fc459699179c1179724806',)
+2026-07-26 12:41:57,825 - sqlalchemy.engine.Engine - INFO - SELECT count(predictions.id) AS total, sum(CAST(predictions.is_correct AS INTEGER)) AS correct, sum(predictions.points_awarded) AS points, sum(predictions.direction_points) AS direction_points, sum(predictions.other_points) AS other_points 
+FROM predictions 
+WHERE predictions.provider_id = ? AND predictions.points_awarded IS NOT NULL
+2026-07-26 12:41:57,825 - sqlalchemy.engine.Engine - INFO - [cached since 0.01043s ago] ('2d2afb3e7d834c57aabd7bf37c298715',)
+2026-07-26 12:41:57,825 - sqlalchemy.engine.Engine - INFO - SELECT count(predictions.id) AS count_1 
+FROM predictions 
+WHERE predictions.provider_id = ? AND predictions.points_awarded IS NOT NULL AND predictions.direction_points > ?
+2026-07-26 12:41:57,826 - sqlalchemy.engine.Engine - INFO - [cached since 0.009587s ago] ('2d2afb3e7d834c57aabd7bf37c298715', -2)
+2026-07-26 12:41:57,827 - sqlalchemy.engine.Engine - INFO - SELECT provider_scores.id, provider_scores.provider_id, provider_scores.total_predictions, provider_scores.correct_predictions, provider_scores.direction_correct_predictions, provider_scores.total_points, provider_scores.direction_points, provider_scores.other_points, provider_scores.accuracy_rate, provider_scores.updated_at 
+FROM provider_scores 
+WHERE provider_scores.provider_id = ?
+2026-07-26 12:41:57,828 - sqlalchemy.engine.Engine - INFO - [cached since 0.009093s ago] ('2d2afb3e7d834c57aabd7bf37c298715',)
+2026-07-26 12:41:57,829 - sqlalchemy.engine.Engine - INFO - SELECT count(predictions.id) AS total, sum(CAST(predictions.is_correct AS INTEGER)) AS correct, sum(predictions.points_awarded) AS points, sum(predictions.direction_points) AS direction_points, sum(predictions.other_points) AS other_points 
+FROM predictions 
+WHERE predictions.provider_id = ? AND predictions.points_awarded IS NOT NULL
+2026-07-26 12:41:57,829 - sqlalchemy.engine.Engine - INFO - [cached since 0.01478s ago] ('a7edcae68cb14f2aa629ba06723cb3e0',)
+2026-07-26 12:41:57,830 - sqlalchemy.engine.Engine - INFO - SELECT count(predictions.id) AS count_1 
+FROM predictions 
+WHERE predictions.provider_id = ? AND predictions.points_awarded IS NOT NULL AND predictions.direction_points > ?
+2026-07-26 12:41:57,831 - sqlalchemy.engine.Engine - INFO - [cached since 0.01412s ago] ('a7edcae68cb14f2aa629ba06723cb3e0', -2)
+2026-07-26 12:41:57,832 - sqlalchemy.engine.Engine - INFO - SELECT provider_scores.id, provider_scores.provider_id, provider_scores.total_predictions, provider_scores.correct_predictions, provider_scores.direction_correct_predictions, provider_scores.total_points, provider_scores.direction_points, provider_scores.other_points, provider_scores.accuracy_rate, provider_scores.updated_at 
+FROM provider_scores 
+WHERE provider_scores.provider_id = ?
+2026-07-26 12:41:57,833 - sqlalchemy.engine.Engine - INFO - [cached since 0.01355s ago] ('a7edcae68cb14f2aa629ba06723cb3e0',)
+2026-07-26 12:41:57,834 - sqlalchemy.engine.Engine - INFO - SELECT count(predictions.id) AS total, sum(CAST(predictions.is_correct AS INTEGER)) AS correct, sum(predictions.points_awarded) AS points, sum(predictions.direction_points) AS direction_points, sum(predictions.other_points) AS other_points 
+FROM predictions 
+WHERE predictions.provider_id = ? AND predictions.points_awarded IS NOT NULL
+2026-07-26 12:41:57,835 - sqlalchemy.engine.Engine - INFO - [cached since 0.02073s ago] ('3f5b8ca74acb4f4a89506901aa47e260',)
+2026-07-26 12:41:57,836 - sqlalchemy.engine.Engine - INFO - SELECT count(predictions.id) AS count_1 
+FROM predictions 
+WHERE predictions.provider_id = ? AND predictions.points_awarded IS NOT NULL AND predictions.direction_points > ?
+2026-07-26 12:41:57,836 - sqlalchemy.engine.Engine - INFO - [cached since 0.02s ago] ('3f5b8ca74acb4f4a89506901aa47e260', -2)
+2026-07-26 12:41:57,838 - sqlalchemy.engine.Engine - INFO - SELECT provider_scores.id, provider_scores.provider_id, provider_scores.total_predictions, provider_scores.correct_predictions, provider_scores.direction_correct_predictions, provider_scores.total_points, provider_scores.direction_points, provider_scores.other_points, provider_scores.accuracy_rate, provider_scores.updated_at 
+FROM provider_scores 
+WHERE provider_scores.provider_id = ?
+2026-07-26 12:41:57,838 - sqlalchemy.engine.Engine - INFO - [cached since 0.01932s ago] ('3f5b8ca74acb4f4a89506901aa47e260',)
+2026-07-26 12:41:57,840 - sqlalchemy.engine.Engine - INFO - SELECT count(predictions.id) AS total, sum(CAST(predictions.is_correct AS INTEGER)) AS correct, sum(predictions.points_awarded) AS points, sum(predictions.direction_points) AS direction_points, sum(predictions.other_points) AS other_points 
+FROM predictions 
+WHERE predictions.provider_id = ? AND predictions.points_awarded IS NOT NULL
+2026-07-26 12:41:57,840 - sqlalchemy.engine.Engine - INFO - [cached since 0.02525s ago] ('9c067f7124914223bccb0f4ded8bb817',)
+2026-07-26 12:41:57,842 - sqlalchemy.engine.Engine - INFO - SELECT count(predictions.id) AS count_1 
+FROM predictions 
+WHERE predictions.provider_id = ? AND predictions.points_awarded IS NOT NULL AND predictions.direction_points > ?
+2026-07-26 12:41:57,842 - sqlalchemy.engine.Engine - INFO - [cached since 0.02489s ago] ('9c067f7124914223bccb0f4ded8bb817', -2)
+2026-07-26 12:41:57,843 - sqlalchemy.engine.Engine - INFO - SELECT provider_scores.id, provider_scores.provider_id, provider_scores.total_predictions, provider_scores.correct_predictions, provider_scores.direction_correct_predictions, provider_scores.total_points, provider_scores.direction_points, provider_scores.other_points, provider_scores.accuracy_rate, provider_scores.updated_at 
+FROM provider_scores 
+WHERE provider_scores.provider_id = ?
+2026-07-26 12:41:57,843 - sqlalchemy.engine.Engine - INFO - [cached since 0.02445s ago] ('9c067f7124914223bccb0f4ded8bb817',)
+2026-07-26 12:41:57,845 - sqlalchemy.engine.Engine - INFO - SELECT count(predictions.id) AS total, sum(CAST(predictions.is_correct AS INTEGER)) AS correct, sum(predictions.points_awarded) AS points, sum(predictions.direction_points) AS direction_points, sum(predictions.other_points) AS other_points 
+FROM predictions 
+WHERE predictions.provider_id = ? AND predictions.points_awarded IS NOT NULL
+2026-07-26 12:41:57,845 - sqlalchemy.engine.Engine - INFO - [cached since 0.03047s ago] ('6a47a1d0472f40c3ab7538ffa36f2e06',)
+2026-07-26 12:41:57,846 - sqlalchemy.engine.Engine - INFO - SELECT count(predictions.id) AS count_1 
+FROM predictions 
+WHERE predictions.provider_id = ? AND predictions.points_awarded IS NOT NULL AND predictions.direction_points > ?
+2026-07-26 12:41:57,847 - sqlalchemy.engine.Engine - INFO - [cached since 0.0302s ago] ('6a47a1d0472f40c3ab7538ffa36f2e06', -2)
+2026-07-26 12:41:57,848 - sqlalchemy.engine.Engine - INFO - SELECT provider_scores.id, provider_scores.provider_id, provider_scores.total_predictions, provider_scores.correct_predictions, provider_scores.direction_correct_predictions, provider_scores.total_points, provider_scores.direction_points, provider_scores.other_points, provider_scores.accuracy_rate, provider_scores.updated_at 
+FROM provider_scores 
+WHERE provider_scores.provider_id = ?
+2026-07-26 12:41:57,848 - sqlalchemy.engine.Engine - INFO - [cached since 0.0297s ago] ('6a47a1d0472f40c3ab7538ffa36f2e06',)
+2026-07-26 12:41:57,849 - sqlalchemy.engine.Engine - INFO - COMMIT
+2026-07-26 12:41:57,852 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2026-07-26 12:41:57,853 - sqlalchemy.engine.Engine - INFO - UPDATE scrape_logs SET status=?, count=? WHERE scrape_logs.id = ?
+2026-07-26 12:41:57,853 - sqlalchemy.engine.Engine - INFO - [generated in 0.00040s] ('success', 0, '8270b578eb05405da20fdc8d4c4694e4')
+2026-07-26 12:41:57,855 - sqlalchemy.engine.Engine - INFO - COMMIT
+2026-07-26 12:41:57,868 - app.tasks.daily_pipeline - INFO - Updated 0 match results, scored 0 predictions

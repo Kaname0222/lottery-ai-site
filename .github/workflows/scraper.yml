@@ -1,0 +1,59 @@
+name: Scraper Pipeline
+
+on:
+  # 每天北京时间 09:00 和 16:00 各跑一次
+  # 中国标准时间 UTC+8，对应 UTC 时间 01:00 和 08:00
+  schedule:
+    - cron: '0 1 * * *'   # 北京时间 09:00
+    - cron: '0 8 * * *'   # 北京时间 16:00
+
+  # 允许手动触发，方便调试
+  workflow_dispatch:
+
+jobs:
+  scrape:
+    name: Scrape matches, odds and results
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
+
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      APP_ENV: production
+      LOG_LEVEL: INFO
+      SCHEDULED_PIPELINE_ENABLED: false
+      PYTHONUNBUFFERED: "1"
+      # 如果 GitHub Actions 出口 IP 访问体彩网站不稳定，可在仓库 Settings → Secrets 里配置代理
+      HTTP_PROXY: ${{ secrets.HTTP_PROXY || '' }}
+      HTTPS_PROXY: ${{ secrets.HTTPS_PROXY || '' }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('backend/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Install Playwright Chromium
+        run: |
+          playwright install chromium
+          sudo playwright install-deps chromium
+
+      - name: Run scraper
+        run: python scripts/run_scraper.py

@@ -1,0 +1,282 @@
+[
+  {
+    "url": "https://www.lottery.gov.cn/jc/jsq/zqbf/",
+    "method": "GET",
+    "resource_type": "document"
+  },
+  {
+    "url": "https://static.sporttery.cn/res_1_0/common/bootstrap-4.4.1-dist/css/bootstrap.min.css",
+    "method": "GET",
+    "resource_type": "stylesheet"
+  },
+  {
+    "url": "https://static.sporttery.cn/res_1_0/common/swiper-5.4.1/css/swiper.min.css",
+    "method": "GET",
+    "resource_type": "stylesheet"
+  },
+  {
+    "url": "https://static.sporttery.cn/res_1_0/common/reset_1_0.css",
+    "method": "GET",
+    "resource_type": "stylesheet"
+  },
+  {
+    "url": "https://static.sporttery.cn/res_1_0/tcw/css/top_1_0.css",
+    "method": "GET",
+    "resource_type": "stylesheet"
+  },
+  {
+    "url": "https://static.sporttery.cn/res_1_0/tcw/css/dlt_1_0.css",
+    "method": "GET",
+    "resource_type": "stylesheet"
+  },
+  {
+    "url": "https://static.sporttery.cn/res_1_0/tcw/css/swiper_1_0.css",
+    "method": "GET",
+    "resource_type": "stylesheet"
+  },
+  {
+    "url": "https://static.sporttery.cn/res_1_0/jcw/css/jc_calculator/lotCss.css",
+    "method": "GET",
+    "resource_type": "stylesheet"
+  },
+  {
+    "url": "https://static.sporttery.cn/res_1_0/jcw/css/jc_calculator/tipsy.css",
+    "method": "GET",
+    "resource_type": "stylesheet"
+  },
+  {
+    "url": "https://static.sporttery.cn/res_1_0/jcw/css/jc_calculator/jc_bf.css",
+    "method": "GET",
+    "resource_type": "stylesheet"
+  },
+  {
+    "url": "https://static.sporttery.cn/res_1_0/common/jquery-3.4.1.min.js",
+    "method": "GET",
+    "resource_type": "script"
+  },
+  {
+    "url": "https://static.sporttery.cn/res_1_0/common/bootstrap-4.4.1-dist/js/bootstrap.bundle.min.js",
+    "method": "GET",
+    "resource_type": "script"
+  },
+  {
+    "url": "https://static.sporttery.cn/res_1_0/common/bootstrap-4.4.1-dist/js/bootstrap.min.js",
+    "method": "GET",
+    "resource_type": "script"
+  },
+  {
+    "url": "https://static.sporttery.cn/res_1_0/common/swiper-5.4.1/js/swiper.min.js",
+    "method": "GET",
+    "resource_type": "script"
+  },
+  {
+    "url": "https://static.sporttery.cn/res_1_0/common/js/commonV1.js",
+    "method": "GET",
+    "resource_type": "script"
+  },
+  {
+    "url": "https://static.sporttery.cn/res_1_0/jcw/js/jc_calculator/jquery.tipsy.js",
+    "method": "GET",
+    "resource_type": "script"
+  },
+  {
+    "url": "https://static.sporttery.cn/res_1_0/jcw/js/jc_calculator/jquery.PrintArea.js",
+    "method": "GET",
+    "resource_type": "script"
+  },
+  {
+    "url": "https://static.sporttery.cn/res_1_0/jcw/js/jc_calculator/jquery.easing.min.js",
+    "method": "GET",
+    "resource_type": "script"
+  },
+  {
+    "url": "https://static.sporttery.cn/res_1_0/jcw/default/jc/jsq/dataTransfer.js",
+    "method": "GET",
+    "resource_type": "script"
+  },
+  {
+    "url": "https://static.sporttery.cn/res_1_0/jcw/default/jc/jsq/lotJs.js",
+    "method": "GET",
+    "resource_type": "script"
+  },
+  {
+    "url": "https://static.sporttery.cn/res_1_0/tcw/default/theme/gray_theme/tcwGrayV1.css",
+    "method": "GET",
+    "resource_type": "stylesheet"
+  },
+  {
+    "url": "https://www.lottery.gov.cn/htmlfrag/719.html",
+    "method": "GET",
+    "resource_type": "xhr"
+  },
+  {
+    "url": "https://www.lottery.gov.cn/htmlfrag/720.html",
+    "method": "GET",
+    "resource_type": "xhr"
+  },
+  {
+    "url": "https://www.lottery.gov.cn/htmlfrag/933.html",
+    "method": "GET",
+    "resource_type": "xhr"
+  },
+  {
+    "url": "https://www.lottery.gov.cn/htmlfrag/887.html",
+    "method": "GET",
+    "resource_type": "xhr"
+  },
+  {
+    "url": "https://www.lottery.gov.cn/htmlfrag/888.html",
+    "method": "GET",
+    "resource_type": "xhr"
+  },
+  {
+    "url": "https://www.lottery.gov.cn/htmlfrag/877.html",
+    "method": "GET",
+    "resource_type": "xhr"
+  },
+  {
+    "url": "https://www.lottery.gov.cn/htmlfrag/874.html",
+    "method": "GET",
+    "resource_type": "xhr"
+  },
+  {
+    "url": "https://www.lottery.gov.cn/htmlfrag/890.html",
+    "method": "GET",
+    "resource_type": "xhr"
+  },
+  {
+    "url": "https://www.lottery.gov.cn/htmlfrag/908.html",
+    "method": "GET",
+    "resource_type": "xhr"
+  },
+  {
+    "url": "https://www.lottery.gov.cn/htmlfrag/769.html",
+    "method": "GET",
+    "resource_type": "xhr"
+  },
+  {
+    "url": "https://static.sporttery.cn/res_1_0/tcw/upload/202012/1100275730l0.jpg",
+    "method": "GET",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://static.sporttery.cn/res_1_0/tcw/images/topBar/icon_phone.png",
+    "method": "GET",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://static.sporttery.cn/res_1_0/tcw/images/topBar/img_code.png",
+    "method": "GET",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://static.sporttery.cn/res_1_0/jcw/images/jc_calculator/zq.png",
+    "method": "GET",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://static.sporttery.cn/res_1_0/jcw/images/jc_calculator/lq.png",
+    "method": "GET",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://static.sporttery.cn/res_1_0/tcw/default/common/js/bdtj.js",
+    "method": "GET",
+    "resource_type": "script"
+  },
+  {
+    "url": "https://static.sporttery.cn/res_1_0/jcw/default/jc/jsq/schedule.js",
+    "method": "GET",
+    "resource_type": "script"
+  },
+  {
+    "url": "https://static.sporttery.cn/res_1_0/jcw/default/jc/jsq/jc_bf.js",
+    "method": "GET",
+    "resource_type": "script"
+  },
+  {
+    "url": "https://static.sporttery.cn/res_1_0/jcw/images/jc_calculator/lotbg_new.png",
+    "method": "GET",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://static.sporttery.cn/res_1_0/jcw/images/jc_calculator/listArrow.gif",
+    "method": "GET",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://static.sporttery.cn/res_1_0/jcw/images/jc_calculator/lotbg.jpg",
+    "method": "GET",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://static.sporttery.cn/res_1_0/jcwm/default/common/tingyun-origin.js",
+    "method": "GET",
+    "resource_type": "script"
+  },
+  {
+    "url": "https://apkdata.sporttery.cn/guanyun/tybrs/web-config?v=4.0.0&_r=1785043473031&token=c85082431003449d80e1ad3c5c9321a0",
+    "method": "GET",
+    "resource_type": "xhr"
+  },
+  {
+    "url": "https://webapi.sporttery.cn/gateway/report/getVtoolsConfigV1.qry?configKey=vtools:config:zc_app_loty_betshu",
+    "method": "GET",
+    "resource_type": "xhr"
+  },
+  {
+    "url": "https://webapi.sporttery.cn/gateway/uniform/football/getMatchCalculatorV1.qry?channel=c&poolCode=crs",
+    "method": "GET",
+    "resource_type": "xhr"
+  },
+  {
+    "url": "https://static.sporttery.cn/res_1_0/jcw/images/jc_calculator/single.gif",
+    "method": "GET",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://webapi.sporttery.cn/gateway/jc/common/getSupportRateV1.qry?matchIds=2040623,2040624,2040625,2040626,2040627,2040628,2040629,2040630,2040631,2040632,2040633,2040634,2040635,2040636,2040637,2040638,2040639,2040640,2040641,2040642&poolCode=hhad,had&sportType=1",
+    "method": "GET",
+    "resource_type": "xhr"
+  },
+  {
+    "url": "https://apkdata.sporttery.cn/guanyun/tybrs/action?ref=https%3A%2F%2Fwww.lottery.gov.cn%2Fjc%2Fjsq%2Fzqbf%2F&referrer=&v=4.0.0&av=4.0.0&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20HeadlessChrome%2F125.0.6422.26%20Safari%2F537.36&id=4Nl_NnGbjwY&key=UnyBhNSru1o&token=c85082431003449d80e1ad3c5c9321a0&sid=4c4481af-5a10-464e-966e-73637d43a164&__s=1785043473029&sh=1080&sw=1920&pvid=8545ea49-16c7-4d5d-81f0-dbd76140582b&did=d7a84189-c688-4030-845f-2813d19101aa&url=https%3A%2F%2Fwww.lottery.gov.cn%2Fjc%2Fjsq%2Fzqbf%2F&ps=1&__r=1785043473035",
+    "method": "POST",
+    "resource_type": "xhr"
+  },
+  {
+    "url": "https://static.sporttery.cn/res_1_0/tcw/default/common/js/tcdc_v1.0.0.min.js",
+    "method": "GET",
+    "resource_type": "script"
+  },
+  {
+    "url": "https://webinfo.sporttery.cn/gateway/psdn/position/region/v1.0/locateByIpForJs",
+    "method": "GET",
+    "resource_type": "script"
+  },
+  {
+    "url": "https://hm.baidu.com/hm.js?8929ffae85e1c07a7ded061329fbf441",
+    "method": "GET",
+    "resource_type": "script"
+  },
+  {
+    "url": "https://receive.sporttery.cn/?compress=0&data=eyJpZGVudGl0aWVzIjp7IiRpZGVudGl0eV9jb29raWVfaWQiOiIxOWY5Y2UxZGVhOTU4MS0wMTE3MWI1MjFhNDQ2ODQtNTE2MzQ2Yi0yMDczNjAwLTE5ZjljZTFkZWFhMTRhMyJ9LCJkaXN0aW5jdF9pZCI6IjE5ZjljZTFkZWE5NTgxLTAxMTcxYjUyMWE0NDY4NC01MTYzNDZiLTIwNzM2MDAtMTlmOWNlMWRlYWExNGEzIiwibGliIjp7IiRsaWIiOiJqcyIsIiRsaWJfbWV0aG9kIjoiY29kZSIsIiRsaWJfdmVyc2lvbiI6IjEuMjMuMyJ9LCJwcm9wZXJ0aWVzIjp7IiR0aW1lem9uZV9vZmZzZXQiOi00ODAsIiRzY3JlZW5faGVpZ2h0IjoxMDgwLCIkc2NyZWVuX3dpZHRoIjoxOTIwLCIkdmlld3BvcnRfaGVpZ2h0IjoxMDgwLCIkdmlld3BvcnRfd2lkdGgiOjE5MjAsIiRsaWIiOiJqcyIsIiRsaWJfdmVyc2lvbiI6IjEuMjMuMyIsIiRsYXRlc3RfdHJhZmZpY19zb3VyY2VfdHlwZSI6IuebtOaOpea1gemHjyIsIiRsYXRlc3Rfc2VhcmNoX2tleXdvcmQiOiLmnKrlj5bliLDlgLxf55u05o6l5omT5byAIiwiJGxhdGVzdF9yZWZlcnJlciI6IiIsImFwcE5hbWUiOiJQQyIsImRhdGFfZnJvbSI6IlRpQ2FpV2ViIiwic291cmNlIjoiIiwicGFnZV9mcm9tIjoiVGljYWlXZWIiLCJwYWdlX3R5cGUiOiJINSIsIiRuZXR3b3JrX3R5cGUiOiI0ZyIsIiRjYXJyaWVyIjoiIiwiJHdpZmkiOiIiLCIkdGl0bGUiOiLotrPnkIPmr5TliIYt56ue5b2p6K6h566X5ZmoIiwiJGlwIjoiIiwiJHByb3ZpbmNlIjoiIiwicHJvdmluY2UiOiIiLCIkY2l0eSI6IiIsImFwcF9uYW1lX3YyIjoib3RoZXIiLCJwYWdlX3Nlc3Npb25faWQiOiI5YmY0MjNhNy03ZGNlLTQ3MTYtODA1OS1lNDRhNmNjODAzNTkiLCJ1c2VySWQiOiIiLCIkcmVmZXJyZXIiOiIiLCIkdXJsIjoiaHR0cHM6Ly93d3cubG90dGVyeS5nb3YuY24vamMvanNxL3pxYmYvIiwiJHVybF9wYXRoIjoiL2pjL2pzcS96cWJmLyIsInBsYXRGb3JtIjoiaDUiLCIkaXNfZmlyc3RfZGF5Ijp0cnVlLCIkaXNfZmlyc3RfdGltZSI6dHJ1ZSwiJHJlZmVycmVyX2hvc3QiOiIifSwiYW5vbnltb3VzX2lkIjoiMTlmOWNlMWRlYTk1ODEtMDExNzFiNTIxYTQ0Njg0LTUxNjM0NmItMjA3MzYwMC0xOWY5Y2UxZGVhYTE0YTMiLCJ0eXBlIjoidHJhY2siLCJldmVudCI6IiRwYWdldmlldyIsInRpbWUiOjE3ODUwNDM0NzYxNTIsIl90cmFja19pZCI6OTkzMzI2MTU2LCJfZmx1c2hfdGltZSI6MTc4NTA0MzQ3NjE1Nn0%3D&ext=crc%3D1657516483",
+    "method": "GET",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://receive.sporttery.cn/?compress=0&data=eyJpZGVudGl0aWVzIjp7IiRpZGVudGl0eV9jb29raWVfaWQiOiIxOWY5Y2UxZGVhOTU4MS0wMTE3MWI1MjFhNDQ2ODQtNTE2MzQ2Yi0yMDczNjAwLTE5ZjljZTFkZWFhMTRhMyJ9LCJkaXN0aW5jdF9pZCI6IjE5ZjljZTFkZWE5NTgxLTAxMTcxYjUyMWE0NDY4NC01MTYzNDZiLTIwNzM2MDAtMTlmOWNlMWRlYWExNGEzIiwibGliIjp7IiRsaWIiOiJqcyIsIiRsaWJfbWV0aG9kIjoiY29kZSIsIiRsaWJfdmVyc2lvbiI6IjEuMjMuMyJ9LCJwcm9wZXJ0aWVzIjp7IiRmaXJzdF92aXNpdF90aW1lIjoiMjAyNi0wNy0yNiAxMzoyNDozNi4xNTciLCIkZmlyc3RfcmVmZXJyZXIiOiIiLCIkZmlyc3RfYnJvd3Nlcl9sYW5ndWFnZSI6InpoLWNuIiwiJGZpcnN0X2Jyb3dzZXJfY2hhcnNldCI6IlVURi04IiwiJGZpcnN0X3RyYWZmaWNfc291cmNlX3R5cGUiOiLnm7TmjqXmtYHph48iLCIkZmlyc3Rfc2VhcmNoX2tleXdvcmQiOiLmnKrlj5bliLDlgLxf55u05o6l5omT5byAIn0sImFub255bW91c19pZCI6IjE5ZjljZTFkZWE5NTgxLTAxMTcxYjUyMWE0NDY4NC01MTYzNDZiLTIwNzM2MDAtMTlmOWNlMWRlYWExNGEzIiwidHlwZSI6InByb2ZpbGVfc2V0X29uY2UiLCJ0aW1lIjoxNzg1MDQzNDc2MTU4LCJfdHJhY2tfaWQiOjI3NTc3NjE1OCwiX2ZsdXNoX3RpbWUiOjE3ODUwNDM0NzYxNTh9&ext=crc%3D1523693510",
+    "method": "GET",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://hm.baidu.com/hm.gif?hca=F292D9604A6765B3&cc=1&ck=1&cl=24-bit&ds=1920x1080&vl=1080&et=0&ja=0&ln=zh-cn&lo=0&rnd=1799141876&si=8929ffae85e1c07a7ded061329fbf441&v=1.3.2&lv=1&sn=1146&r=0&ww=1920&u=https%3A%2F%2Fwww.lottery.gov.cn%2Fjc%2Fjsq%2Fzqbf%2F&tt=%E8%B6%B3%E7%90%83%E6%AF%94%E5%88%86-%E7%AB%9E%E5%BD%A9%E8%AE%A1%E7%AE%97%E5%99%A8",
+    "method": "GET",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://apkdata.sporttery.cn/guanyun/tybrs/action?ref=https%3A%2F%2Fwww.lottery.gov.cn%2Fjc%2Fjsq%2Fzqbf%2F&referrer=&v=4.0.0&av=4.0.0&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20HeadlessChrome%2F125.0.6422.26%20Safari%2F537.36&id=4Nl_NnGbjwY&key=UnyBhNSru1o&token=c85082431003449d80e1ad3c5c9321a0&sid=4c4481af-5a10-464e-966e-73637d43a164&__s=1785043473029&sh=1080&sw=1920&pvid=8545ea49-16c7-4d5d-81f0-dbd76140582b&did=d7a84189-c688-4030-845f-2813d19101aa&url=https%3A%2F%2Fwww.lottery.gov.cn%2Fjc%2Fjsq%2Fzqbf%2F&__r=1785043478036",
+    "method": "POST",
+    "resource_type": "xhr"
+  }
+]

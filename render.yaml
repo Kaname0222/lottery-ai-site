@@ -1,0 +1,35 @@
+# Render Blueprint（基础设施即代码）
+# 部署时 Render 会读取此文件自动创建/更新服务
+# 注意：DATABASE_URL 需要在 Render Dashboard 中手动填入 Supabase 的连接串
+
+services:
+  - type: web
+    name: lottery-backend
+    runtime: docker
+    rootDir: backend
+    dockerfilePath: ./Dockerfile.render
+    plan: free
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: LOG_LEVEL
+        value: INFO
+      # 关闭后端内置定时任务，爬虫由 GitHub Actions 执行
+      - key: SCHEDULED_PIPELINE_ENABLED
+        value: false
+      # 数据库连接串：请从 Supabase 复制并填入 Render Dashboard
+      - key: DATABASE_URL
+        sync: false
+      # LLM Keys：当前用户不使用 LLM 自动预测，保持空值即可
+      - key: OPENAI_API_KEY
+        value: ""
+      - key: GEMINI_API_KEY
+        value: ""
+      - key: DEEPSEEK_API_KEY
+        value: ""
+      - key: KIMI_API_KEY
+        value: ""
+      - key: DOUBAO_API_KEY
+        value: ""
+      - key: QIANWEN_API_KEY
+        value: ""
