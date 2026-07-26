@@ -3,7 +3,7 @@ import logging
 from typing import List, Tuple, Optional
 from sqlalchemy import select, func, Integer, case
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import selectinload
+from sqlalchemy.orm import selectinload, aliased
 from app.models import Match, Prediction, ProviderScore, LLMProvider
 
 logger = logging.getLogger(__name__)
@@ -219,19 +219,42 @@ async def score_finished_matches(db: AsyncSession) -> int:
 
 
 async def _update_provider_scores(db: AsyncSession):
-    """根据 predictions 表重新计算每家 AI 的累计积分与准确率。"""
+    """根据 predictions 表重新计算每家 AI 的累计积分与准确率。
+
+    规则：同一场比赛同一个 AI 的两条预测中，只取 points_awarded 更高的那一条计入排行榜。
+    """
     provider_result = await db.execute(select(LLMProvider))
     providers = provider_result.scalars().all()
 
+    # 子查询：为每个 (provider_id, match_id) 分组内的预测按 points_awarded 降序排名
+    ranked_subq = (
+        select(
+            Prediction,
+            func.row_number()
+            .over(
+                partition_by=[Prediction.provider_id, Prediction.match_id],
+                order_by=Prediction.points_awarded.desc(),
+            )
+            .label("rn"),
+        )
+        .where(Prediction.points_awarded.isnot(None))
+        .subquery()
+    )
+    RankedPrediction = aliased(Prediction, ranked_subq)
+
     for provider in providers:
+        # 取每场比赛得分更高的那一条预测进行累计
         stats_result = await db.execute(
             select(
-                func.count(Prediction.id).label("total"),
-                func.sum(func.cast(Prediction.is_correct, Integer)).label("correct"),
-                func.sum(Prediction.points_awarded).label("points"),
-                func.sum(Prediction.direction_points).label("direction_points"),
-                func.sum(Prediction.other_points).label("other_points"),
-            ).where(Prediction.provider_id == provider.id, Prediction.points_awarded.isnot(None))
+                func.count(RankedPrediction.id).label("total"),
+                func.sum(func.cast(RankedPrediction.is_correct, Integer)).label("correct"),
+                func.sum(RankedPrediction.points_awarded).label("points"),
+                func.sum(RankedPrediction.direction_points).label("direction_points"),
+                func.sum(RankedPrediction.other_points).label("other_points"),
+            ).where(
+                RankedPrediction.provider_id == provider.id,
+                ranked_subq.c.rn == 1,
+            )
         )
         row = stats_result.one_or_none()
         total = row.total or 0
@@ -241,10 +264,10 @@ async def _update_provider_scores(db: AsyncSession):
         other_points = (row.other_points or 0) if row else 0
 
         direction_result = await db.execute(
-            select(func.count(Prediction.id)).where(
-                Prediction.provider_id == provider.id,
-                Prediction.points_awarded.isnot(None),
-                Prediction.direction_points > LOSE_POINTS,
+            select(func.count(RankedPrediction.id)).where(
+                RankedPrediction.provider_id == provider.id,
+                ranked_subq.c.rn == 1,
+                RankedPrediction.direction_points > LOSE_POINTS,
             )
         )
         direction_correct = direction_result.scalar() or 0
