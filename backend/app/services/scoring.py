@@ -60,7 +60,7 @@ def _build_actual_results(match: Match) -> Optional[dict]:
 
 
 def _normalize_selection(market: str, selection: str) -> str:
-    """统一 selection 格式，便于比较。"""
+    """统一 selection 格式，便于比较和赔率查找。"""
     s = str(selection).strip()
     if market == "让球胜平负":
         if "让球主胜" in s:
@@ -72,7 +72,10 @@ def _normalize_selection(market: str, selection: str) -> str:
     if market == "半全场":
         return s.replace("主胜", "胜").replace("平局", "平").replace("客胜", "负")
     if market == "总进球数":
-        return s.replace("球", "")
+        return s.replace("球", "").replace("两", "2").replace("三", "3").replace("四", "4").replace("五", "5")
+    if market == "比分":
+        # 统一中英文冒号、横杠、空格等分隔符为英文冒号
+        return s.replace("：", ":").replace("-", ":").replace("–", ":").replace("—", ":").replace(" ", "")
     return s
 
 
