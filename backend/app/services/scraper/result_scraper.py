@@ -13,7 +13,11 @@ logger = logging.getLogger(__name__)
 
 RESULTS_URL = "https://www.lottery.gov.cn/jc/zqsgkj/"
 RESULTS_API_URL = "https://webapi.sporttery.cn/gateway/uniform/football/getUniformMatchResultV1.qry"
+FIXED_BONUS_API_URL = "https://webapi.sporttery.cn/gateway/uniform/football/getFixedBonusV1.qry"
 API_URL_PATTERN = "gateway/uniform/football/getUniformMatchResultV1.qry"
+
+# 详情页固定奖金接口使用的前端编码（来自 static.sporttery.cn/res_1_0/common/js/commonV1.js）
+FIXED_BONUS_CLIENT_CODE = "3001"
 
 RESULTS_API_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
@@ -23,9 +27,63 @@ RESULTS_API_HEADERS = {
     "Origin": "https://www.lottery.gov.cn",
 }
 
+FIXED_BONUS_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "zh-CN,zh;q=0.9",
+    "Referer": "https://www.sporttery.cn/",
+    "Origin": "https://www.sporttery.cn",
+}
+
 
 def _build_detail_url(mid: str) -> str:
     return f"https://www.sporttery.cn/jc/zqdz/index.html?showType=2&mid={mid}"
+
+
+def _fetch_fixed_bonus_result(mid: str) -> Optional[Tuple[int, int]]:
+    """调用固定奖金接口获取单场比赛全场比分，作为批量 API 字段缺失时的兜底。"""
+    if not mid:
+        return None
+    params = {
+        "clientCode": FIXED_BONUS_CLIENT_CODE,
+        "matchId": mid,
+    }
+    try:
+        logger.info("Fetching fixed bonus API for mid %s", mid)
+        resp = requests.get(
+            FIXED_BONUS_API_URL,
+            params=params,
+            headers=FIXED_BONUS_HEADERS,
+            timeout=30,
+        )
+        resp.raise_for_status()
+        data = resp.json()
+    except Exception as exc:
+        logger.error("Failed to fetch fixed bonus API for mid %s: %s", mid, exc)
+        return None
+
+    if not data.get("success") or data.get("errorCode") != "0":
+        logger.warning(
+            "Fixed bonus API for mid %s returned error: %s",
+            mid,
+            data.get("errorMessage") or data.get("errorCode"),
+        )
+        return None
+
+    value = data.get("value") or {}
+    # 取消或无效场次没有比分
+    if value.get("isCancel") == 1:
+        logger.info("Match mid %s is cancelled according to fixed bonus API", mid)
+        return None
+
+    full_score = _normalize_score(value.get("sectionsNo999"))
+    if not full_score:
+        return None
+
+    m = re.match(r"(\d+):(\d+)", full_score)
+    if not m:
+        return None
+    return int(m.group(1)), int(m.group(2))
 
 
 def parse_score_from_html(html: str) -> Optional[Tuple[int, int]]:
@@ -75,12 +133,8 @@ def parse_score_from_html(html: str) -> Optional[Tuple[int, int]]:
 
 
 def fetch_match_result(mid: str) -> Optional[Tuple[int, int]]:
-    """根据 mid 抓取比赛实际比分（单个比赛详情页兜底）。"""
-    url = _build_detail_url(mid)
-    html = fetch_html(url)
-    if not html:
-        return None
-    return parse_score_from_html(html)
+    """根据 mid 抓取比赛实际比分（优先调用固定奖金接口）。"""
+    return _fetch_fixed_bonus_result(mid)
 
 
 def _match_result_from_score(score_str: Optional[str]) -> Optional[str]:
@@ -120,6 +174,19 @@ def _normalize_score(score: Optional[str]) -> Optional[str]:
     return None
 
 
+def _is_match_finished(item: dict) -> bool:
+    """根据批量 API 返回的字段判断比赛是否已结束（取消/无效除外）。"""
+    pool_status = str(item.get("poolStatus") or "").lower()
+    match_result_status = str(item.get("matchResultStatus") or "").lower()
+    # poolStatus=Close 且 matchResultStatus=1 通常表示赛果已关闭/已开奖
+    if pool_status == "close":
+        return True
+    # 部分已结束比赛可能只返回 matchResultStatus=1
+    if match_result_status == "1":
+        return True
+    return False
+
+
 def _parse_api_results(data: dict) -> List[ParsedResult]:
     """解析体彩赛果 API 返回的 JSON。"""
     results: List[ParsedResult] = []
@@ -128,11 +195,25 @@ def _parse_api_results(data: dict) -> List[ParsedResult]:
 
     for item in matches:
         full_score = _normalize_score(item.get("sectionsNo999"))
+        half_score = _normalize_score(item.get("sectionsNo1"))
+        mid = str(item.get("matchId")) if item.get("matchId") else None
+
+        # 如果批量 API 没有返回全场比分，但比赛看起来已结束，则调用固定奖金接口兜底
+        if not full_score and _is_match_finished(item) and mid:
+            fallback_score = _fetch_fixed_bonus_result(mid)
+            if fallback_score:
+                full_score = f"{fallback_score[0]}:{fallback_score[1]}"
+                logger.info(
+                    "Fallback fixed bonus score for %s (mid %s): %s",
+                    item.get("matchNumStr"),
+                    mid,
+                    full_score,
+                )
+
         if not full_score:
             # 全场比分缺失则跳过（未结束或无效场次）
             continue
 
-        half_score = _normalize_score(item.get("sectionsNo1"))
         match_date_str = item.get("matchDate")
         try:
             match_date = datetime.strptime(match_date_str, "%Y-%m-%d").date() if match_date_str else date.today()
@@ -142,7 +223,7 @@ def _parse_api_results(data: dict) -> List[ParsedResult]:
         results.append(
             ParsedResult(
                 match_id=item.get("matchNumStr", ""),
-                mid=str(item.get("matchId")) if item.get("matchId") else None,
+                mid=mid,
                 match_date=match_date,
                 league=item.get("leagueNameAbbr", ""),
                 home_team=item.get("homeTeam", ""),
@@ -160,6 +241,7 @@ def _parse_api_results(data: dict) -> List[ParsedResult]:
 def _fetch_results_via_api(start_date: str, end_date: str) -> List[ParsedResult]:
     """直接调用体彩赛果 API，支持分页，返回已结束比赛结果。"""
     all_results: List[ParsedResult] = []
+    seen_match_ids: set = set()
     page_no = 1
     max_pages = 20
 
@@ -167,12 +249,9 @@ def _fetch_results_via_api(start_date: str, end_date: str) -> List[ParsedResult]
         params = {
             "matchBeginDate": start_date,
             "matchEndDate": end_date,
+            "matchPage": page_no,
+            "pcOrWap": 0,
             "leagueId": "",
-            "pageSize": 30,
-            "pageNo": page_no,
-            "isFix": 0,
-            "matchPage": 1,
-            "pcOrWap": 1,
         }
         try:
             logger.info("Fetching results API page %d for %s ~ %s", page_no, start_date, end_date)
@@ -193,7 +272,17 @@ def _fetch_results_via_api(start_date: str, end_date: str) -> List[ParsedResult]
             break
 
         page_results = _parse_api_results(data)
-        all_results.extend(page_results)
+
+        # 基于 match_id 去重：如果当前页没有新比赛，说明已到达稳定页，停止分页
+        new_results = [r for r in page_results if r.match_id and r.match_id not in seen_match_ids]
+        if not new_results:
+            logger.info("Results API page %d has no new matches, stopping pagination", page_no)
+            break
+
+        all_results.extend(new_results)
+        for r in new_results:
+            if r.match_id:
+                seen_match_ids.add(r.match_id)
 
         value = data.get("value") or {}
         total_pages = value.get("pages") or 1

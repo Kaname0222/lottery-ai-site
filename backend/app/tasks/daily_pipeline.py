@@ -205,16 +205,21 @@ async def fetch_results_and_score(db: AsyncSession) -> int:
                 continue
 
             new_half_full = half_full_result(result.half_time_score, result.full_time_score)
-            # 更新未完成比赛，或同步/修正已有比赛的结果
-            if (
+            # 只在比分变化或首次回填时更新；半全场为空时不覆盖已有的半全场结果
+            score_changed = (
                 match.actual_home_score is None
                 or match.actual_home_score != home_score
                 or match.actual_away_score != away_score
-                or match.actual_half_full != new_half_full
-            ):
+            )
+            half_full_changed = (
+                new_half_full is not None
+                and match.actual_half_full != new_half_full
+            )
+            if score_changed or half_full_changed:
                 match.actual_home_score = home_score
                 match.actual_away_score = away_score
-                match.actual_half_full = new_half_full
+                if new_half_full is not None:
+                    match.actual_half_full = new_half_full
                 match.result_settled_at = _naive_beijing_now()
                 updated += 1
 
