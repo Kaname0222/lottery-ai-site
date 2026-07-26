@@ -209,7 +209,8 @@ def evaluate_prediction_market(
 async def build_market_leaderboard(db: AsyncSession, market: str) -> list[dict]:
     """按指定玩法（比分/总进球数/半全场）构建排行榜，实时计算不做持久化。
 
-    规则：同一场比赛同一 AI 在该玩法上只取两次预测中得分更高的那一条。
+    规则：同一场比赛同一 AI 先取"其他玩法"（比分+总进球数+半全场）
+    总分更高的那条预测，再用该预测计算指定玩法的命中与积分。
     """
     if market not in OTHER_MARKETS:
         raise ValueError(f"Unsupported market: {market}")
@@ -225,25 +226,39 @@ async def build_market_leaderboard(db: AsyncSession, market: str) -> list[dict]:
     )
     rows = result.all()
 
-    # 按 (provider_id, match_id) 分组，只保留该玩法得分更高的那条预测
+    # 按 (provider_id, match_id) 分组，先保留其他玩法总分更高的那条预测
     grouped: dict = {}
     for prediction, match in rows:
-        market_result = evaluate_prediction_market(prediction, match, market)
-        if market_result is None:
+        other_total = 0.0
+        has_any = False
+        for m in OTHER_MARKETS:
+            market_result = evaluate_prediction_market(prediction, match, m)
+            if market_result is not None:
+                has_any = True
+                other_total += market_result[0]
+        if not has_any:
             continue
 
-        points, is_correct = market_result
         key = (prediction.provider_id, prediction.match_id)
-        if key not in grouped or points > grouped[key]["points"]:
+        if key not in grouped or other_total > grouped[key]["other_total"]:
             grouped[key] = {
                 "provider": prediction.provider,
-                "points": points,
-                "is_correct": is_correct,
+                "prediction": prediction,
+                "match": match,
+                "other_total": other_total,
             }
 
     stats: dict = {}
     for item in grouped.values():
         provider = item["provider"]
+        prediction = item["prediction"]
+        match = item["match"]
+
+        market_result = evaluate_prediction_market(prediction, match, market)
+        if market_result is None:
+            continue
+        points, is_correct = market_result
+
         if provider.id not in stats:
             stats[provider.id] = {
                 "provider_id": provider.id,
@@ -255,8 +270,8 @@ async def build_market_leaderboard(db: AsyncSession, market: str) -> list[dict]:
             }
 
         stats[provider.id]["total"] += 1
-        stats[provider.id]["points"] += item["points"]
-        if item["is_correct"]:
+        stats[provider.id]["points"] += points
+        if is_correct:
             stats[provider.id]["correct"] += 1
 
     leaderboard = []
@@ -329,13 +344,13 @@ async def score_finished_matches(db: AsyncSession) -> int:
 async def _update_provider_scores(db: AsyncSession):
     """根据 predictions 表重新计算每家 AI 的累计积分与准确率。
 
-    规则：把每个玩法视为独立方向。同一场比赛同一个 AI 在每个玩法上
-    只取两次预测中得分更高的那一条。other_points 为
-    比分 + 总进球数 + 半全场 三个方向最高分之和。
+    规则：同一场比赛同一个 AI 有两次预测。先计算每条预测在
+    比分 + 总进球数 + 半全场 三个方向上的总分，取总分更高的那条预测。
+    主排行榜 other_points 为该最佳预测在三个方向上的积分之和。
+    方向玩法（胜平负、让球胜平负）仍按每个玩法分别取最高分后相加。
     """
-    MARKETS = ["胜平负", "让球胜平负", "比分", "总进球数", "半全场"]
-    DIRECTION_MARKETS_SET = {"胜平负", "让球胜平负"}
-    OTHER_MARKETS_SET = {"比分", "总进球数", "半全场"}
+    DIRECTION_MARKETS_LIST = ["胜平负", "让球胜平负"]
+    OTHER_MARKETS_LIST = ["比分", "总进球数", "半全场"]
 
     provider_result = await db.execute(select(LLMProvider))
     providers = provider_result.scalars().all()
@@ -368,32 +383,41 @@ async def _update_provider_scores(db: AsyncSession):
             match = data["match"]
             predictions = data["predictions"]
 
-            # 每个市场取两次预测中的最高分
-            market_best = {market: None for market in MARKETS}
+            # 1. 找出其他玩法（比分+总进球数+半全场）总分最高的预测
+            best_other_prediction = None
+            best_other_total = None
             for prediction in predictions:
-                for market in MARKETS:
+                other_total = 0.0
+                has_any = False
+                for market in OTHER_MARKETS_LIST:
+                    market_result = evaluate_prediction_market(prediction, match, market)
+                    if market_result is not None:
+                        has_any = True
+                        other_total += market_result[0]
+                if has_any:
+                    if best_other_total is None or other_total > best_other_total:
+                        best_other_total = other_total
+                        best_other_prediction = prediction
+
+            if best_other_prediction is not None:
+                total += 1
+                total_other_points += best_other_total
+                if best_other_total > 0:
+                    correct += 1
+
+            # 2. 方向玩法：每个市场取两次预测中的最高分
+            match_direction = 0.0
+            for market in DIRECTION_MARKETS_LIST:
+                market_best = None
+                for prediction in predictions:
                     market_result = evaluate_prediction_market(prediction, match, market)
                     if market_result is None:
                         continue
                     points, _ = market_result
-                    if market_best[market] is None or points > market_best[market]:
-                        market_best[market] = points
-
-            match_direction = sum(
-                market_best[m] for m in DIRECTION_MARKETS_SET if market_best[m] is not None
-            )
-            match_other = sum(
-                market_best[m] for m in OTHER_MARKETS_SET if market_best[m] is not None
-            )
-
-            has_other_market = any(
-                market_best[m] is not None for m in OTHER_MARKETS_SET
-            )
-            if has_other_market:
-                total += 1
-                total_other_points += match_other
-                if match_other > 0:
-                    correct += 1
+                    if market_best is None or points > market_best:
+                        market_best = points
+                if market_best is not None:
+                    match_direction += market_best
 
             total_direction_points += match_direction
             # 方向玩法：至少命中一个方向（两个都未命中为 -4，命中一个则 > -2）
