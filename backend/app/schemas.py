@@ -138,6 +138,19 @@ class ProviderScoreOut(BaseModel):
         from_attributes = True
 
 
+class MarketLeaderboardOut(BaseModel):
+    """单个玩法（比分/总进球数/半全场）的排行榜条目。"""
+
+    provider_id: UUID
+    provider_name: str
+    provider_display_name: str
+    total_predictions: int
+    correct_predictions: int
+    total_points: float
+    accuracy_rate: float
+    updated_at: datetime
+
+
 # ------------------ Dashboard schemas ------------------
 
 class DashboardToday(BaseModel):

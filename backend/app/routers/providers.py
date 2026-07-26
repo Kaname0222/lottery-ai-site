@@ -5,7 +5,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 from app.database import get_db
 from app.models import LLMProvider, ProviderScore
-from app.schemas import ProviderOut, ProviderScoreOut
+from app.schemas import ProviderOut, ProviderScoreOut, MarketLeaderboardOut
+from app.services.scoring import build_market_leaderboard
 
 router = APIRouter(prefix="/providers", tags=["providers"])
 
@@ -45,3 +46,21 @@ async def leaderboard(db: AsyncSession = Depends(get_db)):
         )
         for s in scores
     ]
+
+
+@router.get("/leaderboard/score", response_model=List[MarketLeaderboardOut])
+async def score_leaderboard(db: AsyncSession = Depends(get_db)):
+    """比分玩法排行榜。"""
+    return await build_market_leaderboard(db, "比分")
+
+
+@router.get("/leaderboard/total-goals", response_model=List[MarketLeaderboardOut])
+async def total_goals_leaderboard(db: AsyncSession = Depends(get_db)):
+    """总进球数玩法排行榜。"""
+    return await build_market_leaderboard(db, "总进球数")
+
+
+@router.get("/leaderboard/half-full", response_model=List[MarketLeaderboardOut])
+async def half_full_leaderboard(db: AsyncSession = Depends(get_db)):
+    """半全场玩法排行榜。"""
+    return await build_market_leaderboard(db, "半全场")

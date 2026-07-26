@@ -4,7 +4,7 @@ from typing import List, Tuple, Optional
 from sqlalchemy import select, func, Integer, case
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload, aliased
-from app.models import Match, Prediction, ProviderScore, LLMProvider
+from app.models import Match, Prediction, ProviderScore, LLMProvider, now_beijing
 
 logger = logging.getLogger(__name__)
 
@@ -171,6 +171,114 @@ def evaluate_prediction(prediction: Prediction, match: Match) -> Tuple[float, fl
         other_points > 0,
         hit_count,
     )
+
+
+def evaluate_prediction_market(
+    prediction: Prediction, match: Match, market: str
+) -> Optional[Tuple[float, bool]]:
+    """评估单条预测在指定玩法上的积分与是否命中。
+
+    返回 None 表示该场比赛此玩法暂无实际结果或该预测未推荐此玩法。
+    """
+    if market not in OTHER_MARKETS:
+        return None
+
+    actual_results = _build_actual_results(match)
+    if actual_results is None:
+        return None
+    if actual_results.get(market) is None:
+        return None
+
+    bets = prediction.bets or []
+    for bet in bets:
+        if bet.get("market") != market:
+            continue
+        if _bet_hits(bet, actual_results):
+            odds = _get_odds_for_bet(bet, match)
+            if odds and odds > 0:
+                points = round(odds * STAKE - STAKE, 2)
+            else:
+                points = LOSE_POINTS
+            return points, points > 0
+        else:
+            return LOSE_POINTS, False
+
+    return None
+
+
+async def build_market_leaderboard(db: AsyncSession, market: str) -> list[dict]:
+    """按指定玩法（比分/总进球数/半全场）构建排行榜，实时计算不做持久化。
+
+    规则：同一场比赛同一 AI 在该玩法上只取两次预测中得分更高的那一条。
+    """
+    if market not in OTHER_MARKETS:
+        raise ValueError(f"Unsupported market: {market}")
+
+    result = await db.execute(
+        select(Prediction, Match)
+        .join(Match, Prediction.match_id == Match.id)
+        .where(
+            Match.actual_home_score.isnot(None),
+            Match.actual_away_score.isnot(None),
+        )
+        .options(selectinload(Prediction.provider))
+    )
+    rows = result.all()
+
+    # 按 (provider_id, match_id) 分组，只保留该玩法得分更高的那条预测
+    grouped: dict = {}
+    for prediction, match in rows:
+        market_result = evaluate_prediction_market(prediction, match, market)
+        if market_result is None:
+            continue
+
+        points, is_correct = market_result
+        key = (prediction.provider_id, prediction.match_id)
+        if key not in grouped or points > grouped[key]["points"]:
+            grouped[key] = {
+                "provider": prediction.provider,
+                "points": points,
+                "is_correct": is_correct,
+            }
+
+    stats: dict = {}
+    for item in grouped.values():
+        provider = item["provider"]
+        if provider.id not in stats:
+            stats[provider.id] = {
+                "provider_id": provider.id,
+                "provider_name": provider.name,
+                "provider_display_name": provider.display_name,
+                "total": 0,
+                "correct": 0,
+                "points": 0.0,
+            }
+
+        stats[provider.id]["total"] += 1
+        stats[provider.id]["points"] += item["points"]
+        if item["is_correct"]:
+            stats[provider.id]["correct"] += 1
+
+    leaderboard = []
+    for item in stats.values():
+        total = item["total"]
+        leaderboard.append(
+            {
+                "provider_id": item["provider_id"],
+                "provider_name": item["provider_name"],
+                "provider_display_name": item["provider_display_name"],
+                "total_predictions": total,
+                "correct_predictions": item["correct"],
+                "total_points": round(item["points"], 2),
+                "accuracy_rate": round(item["correct"] / total, 4) if total > 0 else 0.0,
+                "updated_at": now_beijing(),
+            }
+        )
+
+    leaderboard.sort(
+        key=lambda x: (-x["total_points"], -x["correct_predictions"], x["provider_name"])
+    )
+    return leaderboard
 
 
 async def score_finished_matches(db: AsyncSession) -> int:
