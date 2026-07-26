@@ -24,3 +24,6 @@ Thumbs.db
 
 frontend/src/utils/抓取足球赛程并生成比分预测.md
 frontend/src/utils/(1) QQ 机器人项目上下文摘要.md
+
+# Local Netlify folder
+.netlify
