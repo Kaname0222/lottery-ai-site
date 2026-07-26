@@ -16,10 +16,14 @@ from sqlalchemy.orm import sessionmaker, Session
 # 把 backend 目录加入路径，确保能导入 app
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+# 先保存真正的目标连接串，再把环境变量临时改成 SQLite，避免导入 app.database 时
+# 因缺少 psycopg2 等同步驱动而报错（迁移本身使用 asyncpg）
+TARGET_URL = os.environ.get('DATABASE_URL')
+os.environ['DATABASE_URL'] = 'sqlite+aiosqlite:///./lottery_ai.db'
+
 from app.models import Base, LLMProvider, Match, Prediction, ProviderScore, ScrapeLog
 
 SQLITE_PATH = r'C:\Users\19692\Desktop\test\lottery-ai-site\backend\lottery_ai.db'
-TARGET_URL = os.environ.get('DATABASE_URL')
 
 
 def _to_async_url(url: str) -> str:
@@ -115,8 +119,9 @@ async def migrate():
         await session.commit()
         print(f'已插入 {len(matches)} 场比赛')
 
-        # 插入 prediction
-        for pred in predictions:
+        # 插入 prediction（分批提交，避免单条大事务超时）
+        BATCH_SIZE = 50
+        for i, pred in enumerate(predictions):
             session.add(Prediction(
                 id=pred.id,
                 match_id=pred.match_id,
@@ -135,7 +140,11 @@ async def migrate():
                 direction_points=pred.direction_points,
                 other_points=pred.other_points,
             ))
-        await session.commit()
+            if (i + 1) % BATCH_SIZE == 0:
+                await session.commit()
+                print(f'已插入 {i + 1}/{len(predictions)} 条预测')
+        if len(predictions) % BATCH_SIZE != 0:
+            await session.commit()
         print(f'已插入 {len(predictions)} 条预测')
 
         # 插入 provider score
