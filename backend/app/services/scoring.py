@@ -1,9 +1,9 @@
 import json
 import logging
 from typing import List, Tuple, Optional
-from sqlalchemy import select, func, Integer, case
+from sqlalchemy import select, case
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import selectinload, aliased
+from sqlalchemy.orm import selectinload
 from app.models import Match, Prediction, ProviderScore, LLMProvider, now_beijing
 
 logger = logging.getLogger(__name__)
@@ -183,9 +183,6 @@ def evaluate_prediction_market(
 
     返回 None 表示该场比赛此玩法暂无实际结果或该预测未推荐此玩法。
     """
-    if market not in OTHER_MARKETS:
-        return None
-
     actual_results = _build_actual_results(match)
     if actual_results is None:
         return None
@@ -332,56 +329,76 @@ async def score_finished_matches(db: AsyncSession) -> int:
 async def _update_provider_scores(db: AsyncSession):
     """根据 predictions 表重新计算每家 AI 的累计积分与准确率。
 
-    规则：同一场比赛同一个 AI 的两条预测中，只取 points_awarded 更高的那一条计入排行榜。
+    规则：把每个玩法视为独立方向。同一场比赛同一个 AI 在每个玩法上
+    只取两次预测中得分更高的那一条。other_points 为
+    比分 + 总进球数 + 半全场 三个方向最高分之和。
     """
+    MARKETS = ["胜平负", "让球胜平负", "比分", "总进球数", "半全场"]
+    DIRECTION_MARKETS_SET = {"胜平负", "让球胜平负"}
+    OTHER_MARKETS_SET = {"比分", "总进球数", "半全场"}
+
     provider_result = await db.execute(select(LLMProvider))
     providers = provider_result.scalars().all()
 
-    # 子查询：为每个 (provider_id, match_id) 分组内的预测按 points_awarded 降序排名
-    ranked_subq = (
-        select(
-            Prediction,
-            func.row_number()
-            .over(
-                partition_by=[Prediction.provider_id, Prediction.match_id],
-                order_by=Prediction.points_awarded.desc(),
-            )
-            .label("rn"),
-        )
-        .where(Prediction.points_awarded.isnot(None))
-        .subquery()
-    )
-    RankedPrediction = aliased(Prediction, ranked_subq)
-
     for provider in providers:
-        # 取每场比赛得分更高的那一条预测进行累计
-        stats_result = await db.execute(
-            select(
-                func.count(RankedPrediction.id).label("total"),
-                func.sum(func.cast(RankedPrediction.is_correct, Integer)).label("correct"),
-                func.sum(RankedPrediction.points_awarded).label("points"),
-                func.sum(RankedPrediction.direction_points).label("direction_points"),
-                func.sum(RankedPrediction.other_points).label("other_points"),
-            ).where(
-                RankedPrediction.provider_id == provider.id,
-                ranked_subq.c.rn == 1,
+        result = await db.execute(
+            select(Prediction, Match)
+            .join(Match, Prediction.match_id == Match.id)
+            .where(
+                Prediction.provider_id == provider.id,
+                Match.actual_home_score.isnot(None),
+                Match.actual_away_score.isnot(None),
             )
         )
-        row = stats_result.one_or_none()
-        total = row.total or 0
-        correct = (row.correct or 0) if row else 0
-        points = (row.points or 0) if row else 0
-        direction_points = (row.direction_points or 0) if row else 0
-        other_points = (row.other_points or 0) if row else 0
+        rows = result.all()
 
-        direction_result = await db.execute(
-            select(func.count(RankedPrediction.id)).where(
-                RankedPrediction.provider_id == provider.id,
-                ranked_subq.c.rn == 1,
-                RankedPrediction.direction_points > LOSE_POINTS,
+        # 按 match_id 分组
+        by_match: dict = {}
+        for prediction, match in rows:
+            by_match.setdefault(match.id, {"match": match, "predictions": []})
+            by_match[match.id]["predictions"].append(prediction)
+
+        total = 0
+        correct = 0
+        direction_correct = 0
+        total_direction_points = 0.0
+        total_other_points = 0.0
+
+        for data in by_match.values():
+            match = data["match"]
+            predictions = data["predictions"]
+
+            # 每个市场取两次预测中的最高分
+            market_best = {market: None for market in MARKETS}
+            for prediction in predictions:
+                for market in MARKETS:
+                    market_result = evaluate_prediction_market(prediction, match, market)
+                    if market_result is None:
+                        continue
+                    points, _ = market_result
+                    if market_best[market] is None or points > market_best[market]:
+                        market_best[market] = points
+
+            match_direction = sum(
+                market_best[m] for m in DIRECTION_MARKETS_SET if market_best[m] is not None
             )
-        )
-        direction_correct = direction_result.scalar() or 0
+            match_other = sum(
+                market_best[m] for m in OTHER_MARKETS_SET if market_best[m] is not None
+            )
+
+            has_other_market = any(
+                market_best[m] is not None for m in OTHER_MARKETS_SET
+            )
+            if has_other_market:
+                total += 1
+                total_other_points += match_other
+                if match_other > 0:
+                    correct += 1
+
+            total_direction_points += match_direction
+            # 方向玩法：至少命中一个方向（两个都未命中为 -4，命中一个则 > -2）
+            if match_direction > LOSE_POINTS:
+                direction_correct += 1
 
         accuracy = round(correct / total, 4) if total > 0 else 0.0
 
@@ -396,9 +413,9 @@ async def _update_provider_scores(db: AsyncSession):
         score.total_predictions = total
         score.correct_predictions = correct
         score.direction_correct_predictions = direction_correct
-        score.total_points = round(float(points), 2)
-        score.direction_points = round(float(direction_points), 2)
-        score.other_points = round(float(other_points), 2)
+        score.total_points = round(float(total_other_points), 2)
+        score.direction_points = round(float(total_direction_points), 2)
+        score.other_points = round(float(total_other_points), 2)
         score.accuracy_rate = accuracy
 
     await db.commit()
