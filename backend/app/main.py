@@ -84,4 +84,20 @@ app.include_router(admin.router)
 
 @app.get("/health")
 async def health():
-    return {"status": "ok"}
+    try:
+        async with AsyncSessionLocal() as db:
+            from sqlalchemy import select, func
+            from app.models import Match, Prediction, LLMProvider
+            match_count = (await db.execute(select(func.count()).select_from(Match))).scalar()
+            prediction_count = (await db.execute(select(func.count()).select_from(Prediction))).scalar()
+            provider_count = (await db.execute(select(func.count()).select_from(LLMProvider))).scalar()
+            return {
+                "status": "ok",
+                "database": "connected",
+                "matches": match_count,
+                "predictions": prediction_count,
+                "providers": provider_count,
+            }
+    except Exception as exc:
+        logger.exception("Health check database query failed")
+        return {"status": "ok", "database": "error", "error": str(exc)}
