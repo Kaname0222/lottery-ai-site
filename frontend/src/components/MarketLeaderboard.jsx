@@ -24,6 +24,7 @@ export default function MarketLeaderboard({ title, scores }) {
               <th className="px-2 py-2 text-left">排名</th>
               <th className="px-2 py-2 text-left">模型</th>
               <th className="px-2 py-2 text-right">积分</th>
+              <th className="px-2 py-2 text-right">预测场数</th>
               <th className="px-2 py-2 text-right">命中</th>
               <th className="px-2 py-2 text-right">准确率</th>
             </tr>
@@ -34,6 +35,7 @@ export default function MarketLeaderboard({ title, scores }) {
                 <td className="px-2 py-2 font-medium">{idx + 1}</td>
                 <td className="px-2 py-2">{s.provider_display_name}</td>
                 <td className="px-2 py-2 text-right font-bold">{formatPoints(s.total_points)}</td>
+                <td className="px-2 py-2 text-right">{s.total_predictions}</td>
                 <td className="px-2 py-2 text-right">{s.correct_predictions}</td>
                 <td className="px-2 py-2 text-right">{(s.accuracy_rate * 100).toFixed(1)}%</td>
               </tr>

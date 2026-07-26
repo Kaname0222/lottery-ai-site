@@ -33,6 +33,7 @@ export default function Leaderboard({ scores }) {
               <th className="px-2 py-2 text-right text-blue-700">其他积分</th>
               <th className="px-2 py-2 text-right text-green-700">方向积分</th>
               <th className="px-2 py-2 text-right">总积分</th>
+              <th className="px-2 py-2 text-right">预测场数</th>
               <th className="px-2 py-2 text-right">命中其他</th>
               <th className="px-2 py-2 text-right">命中方向</th>
               <th className="px-2 py-2 text-right">准确率</th>
@@ -50,6 +51,7 @@ export default function Leaderboard({ scores }) {
                   {formatPoints(s.direction_points)}
                 </td>
                 <td className="px-2 py-2 text-right">{formatPoints(s.total_points)}</td>
+                <td className="px-2 py-2 text-right">{s.total_predictions}</td>
                 <td className="px-2 py-2 text-right">{s.correct_predictions}</td>
                 <td className="px-2 py-2 text-right">{s.direction_correct_predictions}</td>
                 <td className="px-2 py-2 text-right">{(s.accuracy_rate * 100).toFixed(1)}%</td>
